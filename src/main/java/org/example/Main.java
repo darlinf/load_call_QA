@@ -25,10 +25,10 @@ public class Main {
 
         frame = new JFrame("Load calls 1.0");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 600);
+        frame.setSize(450, 600);
         frame.setLocationRelativeTo(null);
 
-        inputFieldMouse_Y_Axis = createPlaceholderTextField("mouse X axis",20);
+        inputFieldMouse_Y_Axis = createPlaceholderTextField("mouse X axis",16);
         inputFieldMouse_X_Axis = createPlaceholderTextField("mouse Y axis",10);
 
         testMouseXYButton = new JButton("Test");
@@ -89,7 +89,14 @@ public class Main {
         for(int i = 0; i<recordsList.size(); i++){
             String records = recordsList.get(i).getText();
             String text = records.trim();
-            String[] recordArray = text.split("'");
+            String[] recordArray;
+
+            if(containsCharacter(text, '\'')){
+                recordArray = text.split("'");
+            }else{
+                recordArray = text.split(" ");
+            }
+
             arrayOfArraysRecords.add(recordArray);
         }
 
@@ -104,6 +111,15 @@ public class Main {
         startProgram( arrayOfArraysRecords,  arrayOfArrays);
     }
 
+    private static boolean containsCharacter(String text, char targetChar) {
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) == targetChar) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public static void startProgram(ArrayList<String[]> arrayOfArraysRecords, ArrayList<int[]> arrayOfArrays){
         // Access and print elements
@@ -114,9 +130,9 @@ public class Main {
                 int xAxis = arrayOfArrays.get(i)[0];
                 int yAxis = arrayOfArrays.get(i)[1];
 
-                Sleep(2000);
+                Sleep(400);
                 printRecord(xAxis, yAxis, array[y].trim());
-                Sleep(2000);
+                Sleep(400);
             }
             KeyPress(KeyEvent.VK_T);
         }
@@ -126,12 +142,12 @@ public class Main {
         JLabel label = new JLabel();
 
         JButton deleteButton = new JButton("X");
-        JButton testXAxisKeyButton = new JButton("Test");
+        //JButton testXAxisKeyButton = new JButton("Test");
         JButton testYAxisKeyButton = new JButton("Test");
         deleteButton.addActionListener(new DeleteButtonListener());
 
         testYAxisKeyButton.addActionListener(new testYAxisKey());
-        testXAxisKeyButton.addActionListener(new testXAxisKey());
+        //testXAxisKeyButton.addActionListener(new testXAxisKey());
 
         JTextField inputRecords = createPlaceholderTextField("Records",10);
         JTextField xAxisKey = createPlaceholderTextField("X axis key",6);
@@ -143,43 +159,22 @@ public class Main {
         panel.add(deleteButton, BorderLayout.WEST);
 
         panel.add(inputRecords);
-        panel.add(xAxisKey);
-        panel.add(testXAxisKeyButton);
         panel.add(yAxisKey);
+        //panel.add(testXAxisKeyButton);
+        panel.add(xAxisKey);
         panel.add(testYAxisKeyButton);
 
         deleteButtonList.add(deleteButton);
         xAxisKeyList.add(xAxisKey);
         yAxisKeyList.add(yAxisKey);
         recordsList.add(inputRecords);
-        testXAxisKeyButtonList.add(testXAxisKeyButton);
+        //testXAxisKeyButtonList.add(testXAxisKeyButton);
         testYAxisKeyButtonList.add(testYAxisKeyButton);
         arrayListString.add(path);
 
         listPanel.add(panel, BorderLayout.NORTH);
         listPanel.revalidate();
         listPanel.repaint();
-    }
-
-    private class testXAxisKey implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int index = testXAxisKeyButtonList.indexOf(e.getSource());
-
-            int steps = Integer.parseInt(xAxisKeyList.get(index).getText());
-            int mouseX =  Integer.parseInt(inputFieldMouse_X_Axis.getText());
-            int mouseY =  Integer.parseInt(inputFieldMouse_Y_Axis.getText());
-            MouseMove(mouseX,mouseY);
-
-            Sleep(1000);
-            for(int i = 0; i < steps; i++){
-                KeyPress(KeyEvent.VK_RIGHT);
-            }
-            Sleep(2000);
-            for(int i = 0; i < steps; i++){
-                KeyPress(KeyEvent.VK_LEFT);
-            }
-        }
     }
 
     private class testYAxisKey implements ActionListener {
@@ -190,14 +185,23 @@ public class Main {
             MouseMove(mouseX, mouseY);
 
             int index = testYAxisKeyButtonList.indexOf(e.getSource());
-            int steps = Integer.parseInt(yAxisKeyList.get(index).getText());
+            int stepsY = Integer.parseInt(yAxisKeyList.get(index).getText());
+            int stepsX = Integer.parseInt(xAxisKeyList.get(index).getText());
 
             Sleep(1000);
-            for(int i = 0; i < steps; i++){
+            for(int i = 0; i < stepsY; i++){
                 KeyPress(KeyEvent.VK_DOWN);
             }
-            Sleep(2000);
-            for(int i = 0; i < steps; i++){
+            ///////////////////////////////
+            for(int i = 0; i < stepsX; i++){
+                KeyPress(KeyEvent.VK_RIGHT);
+            }
+            Sleep(5000);
+            for(int i = 0; i < stepsX; i++){
+                KeyPress(KeyEvent.VK_LEFT);
+            }
+            ///////////////////////////////
+            for(int i = 0; i < stepsY; i++){
                 KeyPress(KeyEvent.VK_UP);
             }
         }
@@ -291,14 +295,14 @@ public class Main {
     }
 
     public static void  printRecord(int recordArrowKeyXAxis, int recordArrowKeyYAxis, String record){
-        int mi = 10;
+        int mi = 0;
         //Move arrow key, Y axis
         for(int i = 0; i < recordArrowKeyYAxis; i++){
             KeyPress(KeyEvent.VK_DOWN);
             Sleep(mi);
         }
 
-        //Move arrow key, X axis
+        //Move R arrow key, X axis
         for(int i = 0; i < recordArrowKeyXAxis; i++){
             KeyPress(KeyEvent.VK_RIGHT);
             Sleep(mi);
