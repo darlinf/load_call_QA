@@ -46,14 +46,14 @@ public class Main {
         ////////////////////////////////////////////////////////////////////////////
         //panelSleep = new JPanel(new BorderLayout());
         panelSleep = new JPanel(new GridLayout(1, 2));
-        inputStepSleep = createPlaceholderTextField("Step sleep: 5",5);
-        inputRecordSleep = createPlaceholderTextField("Record sleep: 10",5);
+        //inputStepSleep = createPlaceholderTextField("Step sleep: 5",5);
+        //inputRecordSleep = createPlaceholderTextField("Record sleep: 10",5);
 
 
        //panelSleep.setPreferredSize(new Dimension(300, 1));
        // inputStepSleep.setPreferredSize(new Dimension(inputStepSleep.getPreferredSize().width, 10));
-        panelSleep.add(inputStepSleep, BorderLayout.CENTER);
-        panelSleep.add(inputRecordSleep, BorderLayout.WEST);
+        //panelSleep.add(inputStepSleep, BorderLayout.CENTER);
+        //panelSleep.add(inputRecordSleep, BorderLayout.WEST);
 
         /*JButton stopProgram = new JButton("stop program");
         stopProgram.addActionListener(e -> { System.out.print("ffffffffffffffffffff"); });
@@ -84,12 +84,12 @@ public class Main {
 
         JPanel panelTop = new JPanel(new GridLayout(2, 1));
 
-        panelTop.add(panelSleep);
-        panelTop.add(inputPanelMouse_X_Axis);
+        //panelTop.add(panelSleep);
+       // panelTop.add(inputPanelMouse_X_Axis);
 
 
         mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        mainPanel.add(panelTop, BorderLayout.NORTH);
+        mainPanel.add(inputPanelMouse_X_Axis, BorderLayout.NORTH);
 
 
         listPanel = new JPanel(new GridLayout(0, 1, 0, 5));
@@ -101,7 +101,7 @@ public class Main {
 
         addRow.addActionListener(e -> { createRow("pathImage"); });
 
-       JPanel panelButtonOkStop = new JPanel(new GridLayout(1, 2));
+       //JPanel panelButtonOkStop = new JPanel(new GridLayout(1, 2));
         // JPanel panelButtonOkStop= new JPanel(new BorderLayout());
 
         JButton ok = new JButton("OK");
@@ -110,16 +110,17 @@ public class Main {
             Sleep(1000);
             ok();
         });
-        panelButtonOkStop.add(ok);
 
+        /*
+        panelButtonOkStop.add(ok);
         stopProgram = new JButton("stop");
         stopProgram.setEnabled(false);
         stopProgram.addActionListener(e -> { ok(); });
         panelButtonOkStop.add(stopProgram);
 
         mainPanel.add(panelButtonOkStop,BorderLayout.SOUTH );
-
-
+*/
+        mainPanel.add(ok,BorderLayout.SOUTH );
 
         frame.setContentPane(mainPanel);
 
