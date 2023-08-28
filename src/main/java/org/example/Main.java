@@ -11,10 +11,10 @@ import java.util.Arrays;
 public class Main {
 
     private JFrame frame;
-    private JPanel mainPanel, inputPanelMouse_X_Axis, panelSleep, listPanel;
+    private JPanel mainPanel, inputPanelMouse_X_Axis,listPanel;
     private JTextField inputFieldMouse_Y_Axis, inputFieldMouse_X_Axis;
-    private JTextField inputStepSleep, inputRecordSleep;
-    private JButton testMouseXYButton, addRow, stopProgram;
+
+    private JButton testMouseXYButton, addRow;
     private ArrayList<JLabel> labelList;
     private ArrayList<String> arrayListString;
     private ArrayList<JButton> editButtonList, deleteButtonList,testXAxisKeyButtonList,testYAxisKeyButtonList;
@@ -43,29 +43,6 @@ public class Main {
 
         inputPanelMouse_X_Axis = new JPanel(new BorderLayout());
 
-        ////////////////////////////////////////////////////////////////////////////
-        //panelSleep = new JPanel(new BorderLayout());
-        panelSleep = new JPanel(new GridLayout(1, 2));
-        //inputStepSleep = createPlaceholderTextField("Step sleep: 5",5);
-        //inputRecordSleep = createPlaceholderTextField("Record sleep: 10",5);
-
-
-       //panelSleep.setPreferredSize(new Dimension(300, 1));
-       // inputStepSleep.setPreferredSize(new Dimension(inputStepSleep.getPreferredSize().width, 10));
-        //panelSleep.add(inputStepSleep, BorderLayout.CENTER);
-        //panelSleep.add(inputRecordSleep, BorderLayout.WEST);
-
-        /*JButton stopProgram = new JButton("stop program");
-        stopProgram.addActionListener(e -> { System.out.print("ffffffffffffffffffff"); });
-        panelSleep.add(stopProgram, BorderLayout.PAGE_END);*/
-
-
-        //panelSleep.setBorder(new EmptyBorder(10, 10, 10, 10));
-
-        //mainPanel.add(panelSleep, BorderLayout.PAGE_START);
-        //inputPanelMouse_X_Axis.add(inputStepSleep, BorderLayout.CENTER);
-        ////////////////////////////////////////////////////////////////////////////
-
         inputPanelMouse_X_Axis.add(inputFieldMouse_X_Axis, BorderLayout.CENTER);
         inputPanelMouse_X_Axis.add(inputFieldMouse_Y_Axis, BorderLayout.WEST);
         inputPanelMouse_X_Axis.add(testMouseXYButton, BorderLayout.EAST);
@@ -82,15 +59,8 @@ public class Main {
 
         arrayListString = new ArrayList<>();
 
-        JPanel panelTop = new JPanel(new GridLayout(2, 1));
-
-        //panelTop.add(panelSleep);
-       // panelTop.add(inputPanelMouse_X_Axis);
-
-
         mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         mainPanel.add(inputPanelMouse_X_Axis, BorderLayout.NORTH);
-
 
         listPanel = new JPanel(new GridLayout(0, 1, 0, 5));
 
@@ -101,30 +71,16 @@ public class Main {
 
         addRow.addActionListener(e -> { createRow("pathImage"); });
 
-       //JPanel panelButtonOkStop = new JPanel(new GridLayout(1, 2));
-        // JPanel panelButtonOkStop= new JPanel(new BorderLayout());
-
         JButton ok = new JButton("OK");
         ok.addActionListener(e -> {
-            stopProgram.setEnabled(true);
+            // .setEnabled(true);
             Sleep(1000);
             ok();
         });
 
-        /*
-        panelButtonOkStop.add(ok);
-        stopProgram = new JButton("stop");
-        stopProgram.setEnabled(false);
-        stopProgram.addActionListener(e -> { ok(); });
-        panelButtonOkStop.add(stopProgram);
-
-        mainPanel.add(panelButtonOkStop,BorderLayout.SOUTH );
-*/
         mainPanel.add(ok,BorderLayout.SOUTH );
 
         frame.setContentPane(mainPanel);
-
-
         frame.setVisible(true);
     }
 
@@ -134,9 +90,6 @@ public class Main {
 
 
     private void ok(){
-        /*int mouseX =  Integer.parseInt(inputFieldMouse_X_Axis.getText());
-        int mouseY =  Integer.parseInt(inputFieldMouse_Y_Axis.getText());*/
-
         int mouseX = 200;
         int mouseY = 200;
         if(inputFieldMouse_Y_Axis.getText().equals("mouse Y axis: 200") != true){
@@ -159,7 +112,6 @@ public class Main {
             }else{
                 recordArray = text.split(" ");
             }
-
             arrayOfArraysRecords.add(recordArray);
         }
 
@@ -172,7 +124,6 @@ public class Main {
         }
 
         startProgram( arrayOfArraysRecords,  arrayOfArrays);
-        stopProgram.setEnabled(false);
     }
 
     private static boolean containsCharacter(String text, char targetChar) {
@@ -199,6 +150,7 @@ public class Main {
                 Sleep(400);
             }
             KeyPress(KeyEvent.VK_T);
+            Sleep(1000);
         }
     }
 
@@ -206,12 +158,10 @@ public class Main {
         JLabel label = new JLabel();
 
         JButton deleteButton = new JButton("X");
-        //JButton testXAxisKeyButton = new JButton("Test");
         JButton testYAxisKeyButton = new JButton("Test");
         deleteButton.addActionListener(new DeleteButtonListener());
 
         testYAxisKeyButton.addActionListener(new testYAxisKey());
-        //testXAxisKeyButton.addActionListener(new testXAxisKey());
 
         JTextField inputRecords = createPlaceholderTextField("Records",10);
         JTextField xAxisKey = createPlaceholderTextField("X axis key",6);
@@ -225,7 +175,7 @@ public class Main {
         panel.add(inputRecords);
 
         ////////////////////////////////////
-        JPanel panel2 = new JPanel(new GridLayout(2, 1)); // 2 rows, 1 column
+        JPanel panel2 = new JPanel(new GridLayout(2, 1));
         JLabel label1 = new JLabel("|||||");
         JLabel label2 = new JLabel("0");
         panel2.add(label1);
@@ -243,7 +193,6 @@ public class Main {
         xAxisKeyList.add(xAxisKey);
         yAxisKeyList.add(yAxisKey);
         recordsList.add(inputRecords);
-        //testXAxisKeyButtonList.add(testXAxisKeyButton);
         testYAxisKeyButtonList.add(testYAxisKeyButton);
         arrayListString.add(path);
 
@@ -377,11 +326,7 @@ public class Main {
     }
 
     public void  printRecord(int recordArrowKeyXAxis, int recordArrowKeyYAxis, String record){
-        int mi = 1000;
-
-        /*if(inputStepSleep.getText().equals("Step sleep: 5") != true){
-            mi =  Integer.parseInt(inputStepSleep.getText());
-        }*/
+        int mi = 5;
 
         //Move arrow key, Y axis
         for(int i = 0; i < recordArrowKeyYAxis; i++){
